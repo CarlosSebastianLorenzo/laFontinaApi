@@ -20,10 +20,15 @@ const productSchema = joi.object({
         "any.required" : "The Price is required",
         "number.max" : "The price cannot exceed $9.999.999"
     }),
-    category : joi.string().required().max(25).messages({
+    category : joi.string().required().min(0).max(24).messages({
         "string.empty" : "The field Category cannot be empty.",
         "any.required" : "The Category is required",
-        "string.max" : "The Category ID is longer than 24 characters."
+        "string.max" : "The Category is longer than 24 characters.",
+        "string.min" : "The Category must be 1 character."
+    }),
+    class : joi.string().max(50).messages({
+        "string.empty" : "The field Class cannot be empty.",
+        "string.max" : "Class is too long. Please limit to 50 characters."
     })
 })
 

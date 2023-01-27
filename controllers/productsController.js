@@ -5,6 +5,8 @@ const productsController = {
 
     createOneProduct: async (req, res, next) => {
         try {
+            let category = await Category.findOne({ title : req.body.category })
+            req.body.category = category
             let product = await Product.create(req.body)
             res.status(201).json({ 
                 message: "The new product has been successfully created",
@@ -18,6 +20,10 @@ const productsController = {
 
     createManyProducts: async (req, res, next) => {
         try {
+            for (let i = 0; i < req.body.length; i++) {
+                let category = await Category.findOne({ title : req.body[i].category })
+                req.body[i].category = category
+            }
             let products = await Product.insertMany(req.body)
             res.status(201).json({ 
                 message: "The new products have been successfully created",
@@ -39,7 +45,7 @@ const productsController = {
 
     readAllProductsByCategory: async (req, res, next) => {
         try {
-            let category = await Category.findOne({ category : req.params.category })
+            let category = await Category.findOne({ title : req.params.category })
             let products = await Product.find( { category: category._id} )
             res.status(200).json({ response: products})
         } catch (err) {
@@ -79,7 +85,14 @@ const productsController = {
 
     updateManyProducts: async (req, res, next) => {
         try {
-            let products = await Product.updateMany(req.body)
+
+            let products = req.body
+            let newProducts = [];
+            for (let i=0; i<products.length; i++) {
+                let newProduct = await Product.findByIdAndUpdate(products[i]._id, products[i], {new: true})
+                newProducts.push(newProduct)
+            }
+
             res.status(200).json({ 
                 message: "The new products have been successfully updated",
                 response: products
@@ -103,9 +116,14 @@ const productsController = {
 
     deleteManyProducts: async (req, res, next) => {
         try {
-            await Product.deleteMany(req.body)
+
+            let products = req.body
+            for (let i=0; i<products.length; i++) {
+                await Product.findByIdAndDelete(products[i]._id)
+            }
+
             res.status(200).json({ 
-                message: 'resource deleted successfully',
+                message: 'resources deleted successfully',
                 response: 'resources deleted successfully'
             })
         } catch (err) {

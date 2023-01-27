@@ -20,9 +20,9 @@ const { createOneProduct,
 const productsRouter = Router();
 
 productsRouter.post('/', passport.authenticate( 'jwt', {session:false} ), validator(productSchema),
-    isAlreadyExists(Product, title, title), createOneProduct);
+    isAlreadyExists(Product, "title", "title"), createOneProduct);
 
-productsRouter.post('/many/', passport.authenticate( 'jwt', {session:false} ), validator(productSchema), createManyProducts);
+productsRouter.post('/many', passport.authenticate( 'jwt', {session:false} ), createManyProducts);
 
 productsRouter.get('/', readAllProducts)
 productsRouter.get('/:category', readAllProductsByCategory)
@@ -30,9 +30,9 @@ productsRouter.get('/id/:id', readOneProductById)
 productsRouter.get('/name/:name', readOneProductByName)
 
 productsRouter.put('/', passport.authenticate( 'jwt', {session:false} ), updateOneProduct)
-productsRouter.put('/many/', passport.authenticate( 'jwt', {session:false} ), updateManyProducts)
+productsRouter.put('/many', passport.authenticate( 'jwt', {session:false} ), updateManyProducts)
 
 productsRouter.delete('/', passport.authenticate( 'jwt', {session:false} ), deleteOneProduct)
-productsRouter.delete('/many/', passport.authenticate( 'jwt', {session:false} ), deleteManyProducts)
+productsRouter.delete('/many', passport.authenticate( 'jwt', {session:false} ), deleteManyProducts)
 
 export default productsRouter;

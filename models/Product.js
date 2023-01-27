@@ -5,7 +5,8 @@ const productSchema = Schema({
     photo: {type: String, required: true},
     description:{type: String, required: true},
     price: {type: Number, required: true,},
-    category: {type: Schema.ObjectId, ref:'categories', required: true}
+    category: {type: Schema.ObjectId, ref:'categories', required: true},
+    class: {type: String}
 },{
     timestamps: true
 })
