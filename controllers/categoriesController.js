@@ -68,10 +68,16 @@ const categoriesController = {
 
     updateManyCategories: async (req, res, next) => {
         try {
-            let categories = await Category.updateMany(req.body)
+                let categories = req.body
+                let newCategories = [];
+                for (let i=0; i<categories.length; i++) {
+                    let newCategory = await Category.findByIdAndUpdate(categories[i]._id, categories[i], {new: true})
+                    newCategories.push(newCategory)
+                }
+
             res.status(200).json({ 
                 message: "The new categories have been successfully updated",
-                response: categories
+                response: newCategories
             })
         } catch (err) {
             next(err)
@@ -92,7 +98,12 @@ const categoriesController = {
 
     deleteManyCategories: async (req, res, next) => {
         try {
-            await Category.deleteMany(req.body)
+            let categories = req.body
+                let newCategories = [];
+                for (let i=0; i<categories.length; i++) {
+                    let newCategory = await Category.findByIdAndDelete(categories[i]._id)
+                    newCategories.push(newCategory)
+                }
             res.status(200).json({ 
                 message: 'resource deleted successfully',
                 response: 'resources deleted successfully'

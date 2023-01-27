@@ -6,7 +6,7 @@ import categoriesRouter from "./categoryRouter.js";
 const indexRouter = Router();
 
 indexRouter.get('/', (request, response, next) => {
-    response.send('Go to '+process.env['PORT']+process.env['apiURL']+' for routes and documentation');
+    response.send('Go to '+process.env['apiURL']+process.env['PORT']+' for routes and documentation');
 })
 
 indexRouter.use('/user', userRouter)

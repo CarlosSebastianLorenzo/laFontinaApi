@@ -19,18 +19,18 @@ const { createOneCategory,
 const categoriesRouter = Router();
 
 categoriesRouter.post('/', passport.authenticate( 'jwt', {session:false} ), validator(categorySchema),
-    isAlreadyExists(Category, title, title), createOneCategory);
+    isAlreadyExists(Category, "title", "title"), createOneCategory);
 
-categoriesRouter.post('/many/', passport.authenticate( 'jwt', {session:false} ), validator(categorySchema), createManyCategories);
+categoriesRouter.post('/many', passport.authenticate( 'jwt', {session:false} ), createManyCategories);
 
 categoriesRouter.get('/', readAllCategories)
 categoriesRouter.get('/id/:id', readOneCategoryById)
 categoriesRouter.get('/name/:name', readOneCategoryByName)
 
 categoriesRouter.put('/', passport.authenticate( 'jwt', {session:false} ), updateOneCategory)
-categoriesRouter.put('/many/', passport.authenticate( 'jwt', {session:false} ), updateManyCategories)
+categoriesRouter.put('/many', passport.authenticate( 'jwt', {session:false} ), updateManyCategories)
 
 categoriesRouter.delete('/', passport.authenticate( 'jwt', {session:false} ), deleteOneCategory)
-categoriesRouter.delete('/many/', passport.authenticate( 'jwt', {session:false} ), deleteManyCategories)
+categoriesRouter.delete('/many', passport.authenticate( 'jwt', {session:false} ), deleteManyCategories)
 
 export default categoriesRouter;
