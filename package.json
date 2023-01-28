@@ -9,8 +9,16 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarlosSebastianLorenzo/laFontinaApi.git"
+  },
   "author": "Lorenzo Carlos Sebastian",
   "license": "MIT",
+  "bugs":{
+    "url": "https://github.com/CarlosSebastianLorenzo/laFontinaApi/issues"
+  },
+  "homepage": "https://github.com/CarlosSebastianLorenzo/laFontinaApi#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
