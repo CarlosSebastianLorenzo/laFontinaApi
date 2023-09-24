@@ -36,7 +36,10 @@ const productsController = {
 
     readAllProducts: async (req, res, next) => {
         try {
-            let products = await Product.find()
+            let products = await Product.find().populate({
+                path: 'category',
+                select: 'title'
+            })
             res.status(200).json({ response: products})
         } catch (err) {
             next(err)
@@ -46,7 +49,10 @@ const productsController = {
     readAllProductsByCategory: async (req, res, next) => {
         try {
             let category = await Category.findOne({ title : req.params.category })
-            let products = await Product.find( { category: category._id} )
+            let products = await Product.find( { category: category._id} ).populate({
+                path: 'category',
+                select: 'title'
+            })
             res.status(200).json({ response: products})
         } catch (err) {
             next(err)
